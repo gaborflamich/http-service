@@ -1,1 +1,53 @@
 @use "../../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+:host {
+  background: #212529;
+}
+@mixin icon {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.icon-delete {
+  @include icon;
+  background-image: url("../../../assets/images/close.svg");
+}
+
+.icon-update {
+  @include icon;
+  background-image: url("../../../assets/images/update.svg");
+  width: 17px;
+}
+
+.icon-check {
+  @include icon;
+  background-image: url("../../../assets/images/check.svg");
+  display: none;
+}
+.form {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  .form-control {
+    font-size: 18px;
+  }
+  .btn.btn-warning {
+    display: inline-block;
+    height: 42px;
+  }
+}
+.list-group {
+  &-item {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
