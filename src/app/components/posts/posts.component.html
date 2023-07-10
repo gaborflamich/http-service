@@ -1,0 +1,10 @@
+<input
+  #inputRef
+  (keydown.enter)="createPost(inputRef)"
+  type="text"
+  class="form-control mb-3"
+/>
+
+<ul class="list-group">
+  <li *ngFor="let post of posts" class="list-group-item">{{ post.title }}</li>
+</ul>
