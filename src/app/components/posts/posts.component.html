@@ -4,6 +4,7 @@
   (keydown.enter)="createOrUpdatePost(titleInput)"
   type="text"
   class="form-control mb-3"
+  placeholder="Add new item"
 />
 
 <ul class="list-group">
@@ -11,6 +12,7 @@
     <span class="title">{{ post.title }}</span>
     <span class="buttons">
       <i (click)="onEditPost(post)" class="icon-update"></i>
+      <i (click)="onDeletePost(post)" class="icon-delete"></i>
     </span>
   </li>
 </ul>

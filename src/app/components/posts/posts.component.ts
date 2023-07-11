@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-posts',
@@ -19,12 +19,12 @@ export class PostsComponent {
 
   constructor(private http: HttpClient) {
     http.get<any>(this.url).subscribe((response) => {
-      this.posts = response;
+      this.posts = response.slice(0, 10);
     });
   }
 
+  // Focus input field after the view is initialized
   ngAfterViewInit() {
-    // focus input field after the view is initialized
     if (this.titleInput && this.titleInput.nativeElement) {
       this.titleInput.nativeElement.focus();
     }
@@ -53,11 +53,7 @@ export class PostsComponent {
 
   updatePost(post: { isRead: boolean; id: any }) {
     post.isRead = true; // update the post object
-    this.http
-      .patch(`${this.url}/${post.id}`, { isRead: true }) // assuming post has an id
-      .subscribe((response) => {
-        console.log(response);
-      });
+    this.http.patch(`${this.url}/${post.id}`, { isRead: true }); // assuming post has an id
   }
 
   onEditPost(post: { id: any; title: string }) {
@@ -72,12 +68,15 @@ export class PostsComponent {
     }, 0);
   }
 
+  onDeletePost(post: { id: any; title: string }) {
+    this.http.delete(`${this.url}/${post.id}`).subscribe(() => {
+      // Upon success, remove post from local array
+      this.posts = this.posts.filter((p) => p.id !== post.id);
+    });
+  }
+
   savePostTitle(post: { id: any; title: string }) {
     post.title = this.postTitle;
-    this.http
-      .patch(`${this.url}/${post.id}`, { title: post.title })
-      .subscribe((response) => {
-        console.log(response);
-      });
+    this.http.patch(`${this.url}/${post.id}`, { title: post.title });
   }
 }
